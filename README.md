@@ -1,6 +1,6 @@
-# Localapps
+# What is this?
 
-Localapps is a project designed to simplify the management and deployment of local applications
+This is localapps server, a project designed to simplify the management and deployment of local applications.
 
 ## Features
 
@@ -14,14 +14,14 @@ Localapps is a project designed to simplify the management and deployment of loc
 
 Linux:
   ```
-  curl -fsSL https://raw.githubusercontent.com/CyberL1/localapps/main/scripts/get.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/CyberL1/localapps-server/main/scripts/get.sh | sh
   ```
 
 ## Usage
 
 ### Locally
 
-1. Do `localapps up`
+1. Do `localapps-server up`
 2. Go to `http://localhost:8080` and you're good to go
 
 ### Remote (VPS)
