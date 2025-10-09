@@ -33,8 +33,9 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Build frontend
         run: npm install && npm run build
-        working-directory: web
+        working-directory: src/web
       - name: Build binary
+        working_directory: src
         run: |
           export GOOS=${{ matrix.os }}
           export GOARCH=${{ matrix.arch }}
