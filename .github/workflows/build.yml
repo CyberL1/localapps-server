@@ -4,10 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - '**/*.go'
-      - 'web/**'
-      - 'go.mod'
-      - 'go.sum'
+      - 'src/**'
 
 jobs:
   build:
@@ -22,13 +19,14 @@ jobs:
 
     - name: Build frontend
       run: npm install && npm run build
-      working-directory: web
+      working-directory: src/web
 
     - name: Build
       run: go build
+      working-directory: src
 
     - name: Upload build
       uses: actions/upload-artifact@v4
       with:
         name: localapps-server
-        path: localapps-server
+        path: src/localapps-server
