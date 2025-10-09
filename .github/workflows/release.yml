@@ -35,7 +35,7 @@ jobs:
         run: npm install && npm run build
         working-directory: src/web
       - name: Build binary
-        working_directory: src
+        working-directory: src
         run: |
           export GOOS=${{ matrix.os }}
           export GOARCH=${{ matrix.arch }}
