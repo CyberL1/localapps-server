@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"localapps/constants"
-	"localapps/utils"
+	"localapps-server/constants"
+	"localapps-server/utils"
 	"os"
 	"os/exec"
 	"runtime"

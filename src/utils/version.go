@@ -3,8 +3,8 @@ package utils
 import (
 	"encoding/json"
 	"io"
-	"localapps/constants"
-	"localapps/types"
+	"localapps-server/constants"
+	"localapps-server/types"
 	"net/http"
 )
 

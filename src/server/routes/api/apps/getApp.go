@@ -4,9 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"localapps/constants"
-	dbClient "localapps/db/client"
-	"localapps/types"
+	"localapps-server/constants"
+	dbClient "localapps-server/db/client"
+	"localapps-server/types"
 	"net/http"
 )
 

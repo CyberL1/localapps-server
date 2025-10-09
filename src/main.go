@@ -1,8 +1,8 @@
 package main
 
 import (
-	"localapps/cmd"
-	"localapps/utils"
+	"localapps-server/cmd"
+	"localapps-server/utils"
 )
 
 func main() {
