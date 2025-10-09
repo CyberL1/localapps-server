@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"io"
-	"localapps/types"
+	"localapps-server/types"
 	"os"
 	"os/exec"
 	"path/filepath"

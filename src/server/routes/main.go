@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"localapps/resources"
+	"localapps-server/resources"
 	"mime"
 	"net/http"
 	"path/filepath"

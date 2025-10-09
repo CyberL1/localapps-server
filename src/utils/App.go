@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	dbClient "localapps/db/client"
-	"localapps/types"
+	dbClient "localapps-server/db/client"
+	"localapps-server/types"
 )
 
 func GetAppData(appId string) (*types.ApiAppResponse, error) {

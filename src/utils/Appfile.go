@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 	"io"
-	"localapps/types"
+	"localapps-server/types"
 	"os"
 
 	"github.com/go-yaml/yaml"

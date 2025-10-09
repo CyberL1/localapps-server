@@ -3,9 +3,9 @@ package middlewares
 import (
 	"context"
 	"fmt"
-	"localapps/constants"
-	"localapps/utils"
-	"localapps/web"
+	"localapps-server/constants"
+	"localapps-server/utils"
+	"localapps-server/web"
 	"net/http"
 	"net/http/httputil"
 	"net/url"

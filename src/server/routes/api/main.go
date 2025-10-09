@@ -1,10 +1,10 @@
 package api
 
 import (
-	"localapps/server/middlewares"
-	adminApi "localapps/server/routes/api/admin"
-	appsApi "localapps/server/routes/api/apps"
-	iconsApi "localapps/server/routes/api/icons"
+	"localapps-server/server/middlewares"
+	adminApi "localapps-server/server/routes/api/admin"
+	appsApi "localapps-server/server/routes/api/apps"
+	iconsApi "localapps-server/server/routes/api/icons"
 	"net/http"
 )
 

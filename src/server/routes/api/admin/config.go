@@ -2,9 +2,9 @@ package adminApi
 
 import (
 	"encoding/json"
-	"localapps/constants"
-	"localapps/types"
-	"localapps/utils"
+	"localapps-server/constants"
+	"localapps-server/types"
+	"localapps-server/utils"
 	"net/http"
 )
 

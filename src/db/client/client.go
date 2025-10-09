@@ -3,9 +3,9 @@ package dbClient
 import (
 	"database/sql"
 	"fmt"
-	"localapps/constants"
-	db "localapps/db/generated"
-	"localapps/resources"
+	"localapps-server/constants"
+	db "localapps-server/db/generated"
+	"localapps-server/resources"
 	"path/filepath"
 
 	_ "modernc.org/sqlite"

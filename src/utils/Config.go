@@ -5,13 +5,13 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"localapps/constants"
-	dbClient "localapps/db/client"
+	"localapps-server/constants"
+	dbClient "localapps-server/db/client"
 	"os"
 	"path/filepath"
 
-	db "localapps/db/generated"
-	"localapps/types"
+	db "localapps-server/db/generated"
+	"localapps-server/types"
 	"reflect"
 )
 
