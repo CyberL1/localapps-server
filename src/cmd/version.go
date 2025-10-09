@@ -33,7 +33,7 @@ func version(cmd *cobra.Command, args []string) {
 
 	if constants.Version < latestRelease.TagName {
 		fmt.Println("A new update is avaliable")
-		fmt.Println("Run 'localapps version upgrade' to upgrade")
+		fmt.Println("Run 'localapps-server version upgrade' to upgrade")
 	}
 	fmt.Println("Your CLI Version:", constants.Version)
 	fmt.Println("Latest CLI version:", latestRelease.TagName)
