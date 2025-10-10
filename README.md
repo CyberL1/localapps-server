@@ -12,10 +12,7 @@ This is localapps server, a project designed to simplify the management and depl
 ### Requirements
  - Docker
 
-Linux:
-  ```
-  curl -fsSL https://raw.githubusercontent.com/CyberL1/localapps-server/main/scripts/get.sh | sh
-  ```
+Go to releases page and download the binary for your OS and architecture.
 
 ## Usage
 
