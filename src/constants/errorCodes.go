@@ -3,7 +3,6 @@ package constants
 var (
 	ErrorAccessDenied     = "ACCESS_DENIED"
 	ErrorAppInstalled     = "APP_INSTALLED"
-	ErrorContainerTimeout = "CONTAINER_TIMEOUT"
 	ErrorDb               = "DATABASE_ERROR"
 	ErrorDockerEngine     = "DOCKER_ENGINE_ERROR"
 	ErrorEncode           = "ENCODE_ERROR"
