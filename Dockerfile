@@ -12,10 +12,10 @@ WORKDIR /build
 COPY src .
 COPY --from=web-builder /build/build web/build
 
-RUN go build -ldflags "-s -w -X localapps/constants.Version=$CLI_VERSION -X localapps/constants.runningInContainer=true"
+RUN go build -ldflags "-s -w -X localapps-server/constants.Version=$CLI_VERSION -X localapps-server/constants.runningInContainer=true"
 
 FROM alpine
-COPY --from=builder /build/localapps /bin
+COPY --from=builder /build/localapps-server /bin
 
 RUN mkdir /root/.config
-ENTRYPOINT ["localapps", "up"]
+ENTRYPOINT ["localapps-server", "up"]
