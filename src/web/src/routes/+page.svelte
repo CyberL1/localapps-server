@@ -21,7 +21,7 @@
             +
           </button>
         </div>
-        <a href={`//${app.name}.${page.data.domain}`} target="_blank">
+        <a href={`//${app.appId}.${page.data.domain}`} target="_blank">
           <img
             src={app.icon
               ? `/api/icons/apps/${app.icon}`
@@ -42,7 +42,7 @@
     {
       title: "Open",
       onclick: () => {
-        window.open(`//${menuData.name}.${page.data.domain}`);
+        window.open(`//${menuData.appId}.${page.data.domain}`);
         menu.close();
       },
     },
