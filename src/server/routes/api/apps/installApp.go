@@ -104,6 +104,18 @@ func installApp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if appInfo.Id != strings.ToLower(appInfo.Id) {
+		response := types.ApiError{
+			Code:    constants.ErrorParse,
+			Message: "App ID must be lowercased",
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
 	client, _ := dbClient.GetClient()
 	appWithTheSameId, _ := client.GetAppByAppId(context.Background(), appInfo.Id)
 
