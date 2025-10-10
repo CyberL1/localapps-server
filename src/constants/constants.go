@@ -15,7 +15,7 @@ var (
 	LocalappsAppIconsDir = filepath.Join(LocalappsIconsDir, "apps")
 
 	Version          string
-	GithubReleaseUrl = "https://api.github.com/repos/CyberL1/localapps/releases/latest"
+	GithubReleaseUrl = "https://api.github.com/repos/CyberL1/localapps-server/releases/latest"
 )
 
 func IsRunningInContainer() bool {
