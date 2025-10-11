@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func GetLatestCliVersion() (*types.GithubRelease, error) {
+func GetLatestServerVersion() (*types.GithubRelease, error) {
 	resp, err := http.Get(constants.GithubReleaseUrl)
 	if err != nil {
 		return nil, err

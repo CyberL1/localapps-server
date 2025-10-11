@@ -20,7 +20,7 @@ var versionCmd = &cobra.Command{
 }
 
 func version(cmd *cobra.Command, args []string) {
-	latestRelease, err := utils.GetLatestCliVersion()
+	latestRelease, err := utils.GetLatestServerVersion()
 	if err != nil {
 		fmt.Println("Failed to get latest release", err)
 		return
