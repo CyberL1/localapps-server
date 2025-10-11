@@ -15,7 +15,7 @@ func init() {
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Displays your server version",
+	Short: "Check the server version",
 	Run:   version,
 }
 
