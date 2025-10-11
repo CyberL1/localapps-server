@@ -9,7 +9,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "localapps-server",
-	Short: "Own your apps",
+	Short: "Manage the localapps server",
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
 	},

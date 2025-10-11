@@ -21,7 +21,7 @@ func init() {
 
 var upgradeCmd = &cobra.Command{
 	Use:   "upgrade",
-	Short: "Upgrades your server version",
+	Short: "Upgrade the server",
 	Run: func(cmd *cobra.Command, args []string) {
 		latestRelease, err := utils.GetLatestCliVersion()
 		if err != nil {
