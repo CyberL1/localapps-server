@@ -1,11 +1,7 @@
 package main
 
-import (
-	"localapps-server/cmd"
-	"localapps-server/utils"
-)
+import "localapps-server/cmd"
 
 func main() {
-	utils.UpdateCliConfigCache()
 	cmd.Execute()
 }
