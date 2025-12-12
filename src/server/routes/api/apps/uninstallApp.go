@@ -106,7 +106,7 @@ func uninstallApp(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	appImages, _ := cli.ImageList(context.Background(), image.ListOptions{Filters: filters.NewArgs(filters.Arg("reference", "localapps/apps/"+appId+"/*"))})
+	appImages, _ := cli.ImageList(context.Background(), image.ListOptions{Filters: filters.NewArgs(filters.Arg("reference", "localapps/apps/"+appData.AppID+"/*"))})
 	if len(appImages) > 0 {
 		for _, im := range appImages {
 			_, err = cli.ImageRemove(context.Background(), im.ID, image.RemoveOptions{Force: true})
