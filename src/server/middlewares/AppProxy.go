@@ -10,6 +10,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -87,7 +88,11 @@ func AppProxy(next http.Handler) http.Handler {
 				containerAddress = strings.TrimPrefix(containerInspect.Name, "/")
 				freePort = 80
 			} else {
-				containerPort := containersByLabels[0].Ports[0].PublicPort
+				portIndex := slices.IndexFunc(containersByLabels[0].Ports, func(port container.Port) bool {
+					return port.PrivatePort == 80
+				})
+
+				containerPort := containersByLabels[0].Ports[portIndex].PublicPort
 				containerAddress = "localhost"
 				freePort = int(containerPort)
 			}
