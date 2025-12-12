@@ -52,7 +52,7 @@ func AppProxy(next http.Handler) http.Handler {
 
 		_, err = cli.Ping(context.Background())
 		if err != nil {
-			w.Write([]byte(fmt.Sprintf("Failed to connect to Docker engine: %s", err)))
+			fmt.Fprintf(w, "Failed to connect to Docker engine: %s", err)
 			return
 		}
 
@@ -130,7 +130,7 @@ func AppProxy(next http.Handler) http.Handler {
 			fmt.Println("[app:"+appNameWithPart+"]", "Got a http request while stopped - creating container")
 
 			if err := cli.ContainerStart(context.Background(), createdContainer.ID, container.StartOptions{}); err != nil {
-				w.Write([]byte(fmt.Sprintf("Failed to start app \"%s\": %s", appId, err)))
+				fmt.Fprintf(w, "Failed to start app \"%s\": %s", appId, err)
 				return
 			}
 
