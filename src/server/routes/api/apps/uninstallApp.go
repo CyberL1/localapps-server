@@ -8,6 +8,8 @@ import (
 	dbClient "localapps-server/db/client"
 	"localapps-server/types"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"strconv"
 
@@ -36,7 +38,7 @@ func uninstallApp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = client.GetAppById(context.Background(), appIdInt64)
+	appData, err := client.GetAppById(context.Background(), appIdInt64)
 	if err != nil {
 		response := types.ApiError{
 			Code:    constants.ErrorNotFound,
@@ -121,6 +123,10 @@ func uninstallApp(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
+	}
+
+	if appData.Icon != "" {
+		os.Remove(filepath.Join(constants.LocalappsAppIconsDir, appData.Icon))
 	}
 
 	err = client.DeleteApp(context.Background(), appIdInt64)
