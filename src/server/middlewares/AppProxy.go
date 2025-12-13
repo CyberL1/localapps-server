@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	"os"
 	"slices"
 	"strconv"
 	"strings"
@@ -30,7 +29,7 @@ func AppProxy(next http.Handler) http.Handler {
 			if strings.HasPrefix(r.URL.Path, "/api") {
 				next.ServeHTTP(w, r)
 			} else {
-				if os.Getenv("DEV_MODE") == "true" {
+				if constants.IsDebugBuild {
 					frontendUrl, _ := url.Parse("http://localhost:5173")
 					httputil.NewSingleHostReverseProxy(frontendUrl).ServeHTTP(w, r)
 				} else {
