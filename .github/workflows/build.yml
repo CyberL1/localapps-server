@@ -2,31 +2,37 @@ name: Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths:
-      - 'src/**'
+      - "src/**"
 
 jobs:
-  build:
+  build-debug-executable:
+    name: Build debug executable
+    permissions: write-all
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - windows
+          - linux
+          - darwin
+        arch:
+          - amd64
+          - arm64
+        exclude:
+          - os: windows
+            arch: arm64
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.23'
-
-    - name: Build frontend
-      run: npm install && npm run build
-      working-directory: src/web
-
-    - name: Build
-      run: go build
-      working-directory: src
-
-    - name: Upload build
-      uses: actions/upload-artifact@v4
-      with:
-        name: localapps-server
-        path: src/localapps-server
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23"
+      - name: Build binary
+        working-directory: src
+        run: |
+          export GOOS=${{ matrix.os }}
+          export GOARCH=${{ matrix.arch }}
+          go build -tags debug -ldflags "-X localapps-server/constants.Version=v0.0.0-debug" -o ../localapps-server-${{ matrix.os }}-${{ matrix.arch }}${{ matrix.os == 'windows' && '.exe' || '' }}
