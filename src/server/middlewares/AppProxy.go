@@ -127,7 +127,7 @@ func AppProxy(next http.Handler) http.Handler {
 			appNameWithPart := appId + "/" + currentPartName
 			createdContainer, _ := cli.ContainerCreate(context.Background(), &config, &hostConfig, nil, nil, "")
 
-			fmt.Println("[app:"+appNameWithPart+"]", "Got a http request while stopped - creating container")
+			fmt.Printf("[app:%s] Got a http request while stopped - creating container\n", appNameWithPart)
 
 			if err := cli.ContainerStart(context.Background(), createdContainer.ID, container.StartOptions{}); err != nil {
 				fmt.Fprintf(w, "Failed to start app \"%s\": %s", appId, err)
@@ -148,7 +148,7 @@ func AppProxy(next http.Handler) http.Handler {
 			go func() {
 				time.Sleep(20 * time.Second)
 
-				fmt.Println("[app:"+appNameWithPart+"]", "Exceeded timeout (20s) - stopping container")
+				fmt.Printf("[app:%s] Exceeded timeout (20s) - stopping container\n", appNameWithPart)
 				cli.ContainerStop(context.Background(), createdContainer.ID, container.StopOptions{})
 			}()
 		}
