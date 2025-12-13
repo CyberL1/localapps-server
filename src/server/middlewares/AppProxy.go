@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"localapps-server/constants"
 	"localapps-server/utils"
-	"localapps-server/web"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -26,16 +25,7 @@ func AppProxy(next http.Handler) http.Handler {
 		var appEnvironmentVars []string
 
 		if r.Host == strings.Split(utils.ServerConfig.AccessUrl, "://")[1] {
-			if strings.HasPrefix(r.URL.Path, "/api") {
-				next.ServeHTTP(w, r)
-			} else {
-				if constants.IsDebugBuild {
-					frontendUrl, _ := url.Parse("http://localhost:5173")
-					httputil.NewSingleHostReverseProxy(frontendUrl).ServeHTTP(w, r)
-				} else {
-					http.FileServerFS(web.BuildDirFS).ServeHTTP(w, r)
-				}
-			}
+			next.ServeHTTP(w, r)
 			return
 		}
 
@@ -164,7 +154,5 @@ func AppProxy(next http.Handler) http.Handler {
 
 		appUrl, _ := url.Parse(containerAccessPoint)
 		httputil.NewSingleHostReverseProxy(appUrl).ServeHTTP(w, r)
-
-		next.ServeHTTP(w, r)
 	})
 }
