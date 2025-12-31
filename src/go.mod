@@ -60,6 +60,7 @@ require (
 
 require (
 	github.com/docker/docker v28.5.1+incompatible
+	github.com/go-chi/chi/v5 v5.2.3
 	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/golang-migrate/migrate/v4 v4.19.0
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect

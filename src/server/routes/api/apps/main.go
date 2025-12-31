@@ -1,6 +1,6 @@
 package appsApi
 
-import "net/http"
+import "github.com/go-chi/chi/v5"
 
 type Handler struct{}
 
@@ -8,13 +8,13 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) RegisterRoutes() *http.ServeMux {
-	r := http.NewServeMux()
+func (h *Handler) RegisterRoutes() *chi.Mux {
+	r := chi.NewRouter()
 
-	r.HandleFunc("GET /", getAppList)
-	r.HandleFunc("GET /{appId}", getApp)
-	r.HandleFunc("POST /", installApp)
-	r.HandleFunc("DELETE /{appId}", uninstallApp)
+	r.Get("/", getAppList)
+	r.Get("/{appId}", getApp)
+	r.Post("/", installApp)
+	r.Delete("/{appId}", uninstallApp)
 
 	return r
 }

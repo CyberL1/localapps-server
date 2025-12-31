@@ -1,8 +1,6 @@
 package adminApi
 
-import (
-	"net/http"
-)
+import "github.com/go-chi/chi/v5"
 
 type Handler struct{}
 
@@ -10,10 +8,10 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) RegisterRoutes() *http.ServeMux {
-	r := http.NewServeMux()
+func (h *Handler) RegisterRoutes() *chi.Mux {
+	r := chi.NewRouter()
 
-	r.HandleFunc("GET /config", getConfig)
+	r.Get("/config", getConfig)
 
 	return r
 }

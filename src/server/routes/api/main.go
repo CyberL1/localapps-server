@@ -5,7 +5,8 @@ import (
 	adminApi "localapps-server/server/routes/api/admin"
 	appsApi "localapps-server/server/routes/api/apps"
 	iconsApi "localapps-server/server/routes/api/icons"
-	"net/http"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type Handler struct{}
@@ -14,14 +15,18 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) RegisterRoutes() *http.ServeMux {
-	r := http.NewServeMux()
+func (h *Handler) RegisterRoutes() *chi.Mux {
+	r := chi.NewRouter()
 
-	r.Handle("/admin/", http.StripPrefix("/admin", middlewares.ApiAuth(adminApi.NewHandler().RegisterRoutes())))
-	r.Handle("/apps/", http.StripPrefix("/apps", middlewares.ApiAuth(appsApi.NewHandler().RegisterRoutes())))
-	r.Handle("/icons/", http.StripPrefix("/icons", iconsApi.NewHandler().RegisterRoutes()))
+	r.Route("/", func(r chi.Router) {
+		r.Use(middlewares.ApiAuth)
 
-	r.HandleFunc("GET /link", Link)
+		r.Mount("/admin", adminApi.NewHandler().RegisterRoutes())
+		r.Mount("/apps", appsApi.NewHandler().RegisterRoutes())
+	})
+
+	r.Mount("/icons", iconsApi.NewHandler().RegisterRoutes())
+	r.Get("/link", Link)
 
 	return r
 }

@@ -1,6 +1,6 @@
 package iconsApi
 
-import "net/http"
+import "github.com/go-chi/chi/v5"
 
 type Handler struct{}
 
@@ -8,10 +8,10 @@ func NewHandler() *Handler {
 	return &Handler{}
 }
 
-func (h *Handler) RegisterRoutes() *http.ServeMux {
-	r := http.NewServeMux()
-	
-	r.HandleFunc("GET /apps/{icon}", getAppIcon)
-	
+func (h *Handler) RegisterRoutes() *chi.Mux {
+	r := chi.NewRouter()
+
+	r.Get("/apps/{icon}", getAppIcon)
+
 	return r
 }

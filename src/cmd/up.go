@@ -9,10 +9,8 @@ import (
 	"localapps-server/constants"
 	dbClient "localapps-server/db/client"
 	db "localapps-server/db/generated"
-	"localapps-server/server/middlewares"
-	"localapps-server/server/routes/api"
+	"localapps-server/server"
 	"localapps-server/utils"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -154,13 +152,6 @@ var upCmd = &cobra.Command{
 		}
 
 		cmd.Println("Starting HTTP server")
-
-		router := http.NewServeMux()
-		router.Handle("/api/", http.StripPrefix("/api", api.NewHandler().RegisterRoutes()))
-
-		if err := http.ListenAndServe(":8080", middlewares.FrontendProxy(middlewares.AppProxy(router))); err != nil {
-			fmt.Printf("Failed to bind to port 8080: %s\n", err)
-			os.Exit(1)
-		}
+		server.Start()
 	},
 }
