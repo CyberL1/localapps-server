@@ -124,7 +124,12 @@ func AppProxy(next http.Handler) http.Handler {
 				}
 			}
 
-			createdContainer, _ := cli.ContainerCreate(context.Background(), &config, &hostConfig, nil, nil, "")
+			createdContainer, err := cli.ContainerCreate(context.Background(), &config, &hostConfig, nil, nil, "")
+			if err != nil {
+				fmt.Fprintf(w, "Failed to create container for app part \"%s\": %s", appNameWithPart, err)
+				return
+			}
+
 			idleTimeouts[appNameWithPart] = idleTimeoutToSet
 
 			if constants.IsDebugBuild {
