@@ -74,13 +74,14 @@ func AppProxy(next http.Handler) http.Handler {
 		var containerAddress string
 
 		idleTimeoutToSet := 20 * time.Second
+		appNameWithPart := appId + "/" + currentPartName
 
 		if len(containersByLabels) > 0 {
 			if constants.IsDebugBuild {
-				fmt.Printf("Reseting timeout for app '%s': %v -> %v\n", appId, idleTimeouts[appId], idleTimeoutToSet)
+				fmt.Printf("Reseting timeout for '%s': %v -> %v\n", appNameWithPart, idleTimeouts[appNameWithPart], idleTimeoutToSet)
 			}
 
-			idleTimeouts[appId] = idleTimeoutToSet
+			idleTimeouts[appNameWithPart] = idleTimeoutToSet
 
 			if constants.IsRunningInContainer() {
 				containerInspect, _ := cli.ContainerInspect(context.Background(), containersByLabels[0].ID)
@@ -123,16 +124,14 @@ func AppProxy(next http.Handler) http.Handler {
 				}
 			}
 
-			appNameWithPart := appId + "/" + currentPartName
 			createdContainer, _ := cli.ContainerCreate(context.Background(), &config, &hostConfig, nil, nil, "")
-
-			idleTimeouts[appId] = idleTimeoutToSet
+			idleTimeouts[appNameWithPart] = idleTimeoutToSet
 
 			if constants.IsDebugBuild {
-				fmt.Printf("Creating container for app '%s' with idle timeout of %v\n", appId, idleTimeouts[appId])
+				fmt.Printf("Creating container for app part '%s' with idle timeout of %v\n", appNameWithPart, idleTimeouts[appNameWithPart])
 			}
 
-			fmt.Printf("[app:%s] Got a http request while stopped - creating container with %v ilde timeout\n", appNameWithPart, idleTimeouts[appId])
+			fmt.Printf("[app:%s] Got a http request while stopped - creating container with %v ilde timeout\n", appNameWithPart, idleTimeouts[appNameWithPart])
 
 			if err := cli.ContainerStart(context.Background(), createdContainer.ID, container.StartOptions{}); err != nil {
 				fmt.Fprintf(w, "Failed to start app \"%s\": %s", appId, err)
@@ -151,26 +150,26 @@ func AppProxy(next http.Handler) http.Handler {
 			}
 
 			go func() {
-				originalIdleTimeout := idleTimeouts[appId]
+				originalIdleTimeout := idleTimeouts[appNameWithPart]
 
-				for idleTimeouts[appId] > 0 {
+				for idleTimeouts[appNameWithPart] > 0 {
 					time.Sleep(time.Second)
 
 					if constants.IsDebugBuild {
-						fmt.Printf("Updating timeout for '%s': %v -> %v\n", appId, idleTimeouts[appId], idleTimeouts[appId]-time.Second)
+						fmt.Printf("Updating timeout for '%s': %v -> %v\n", appNameWithPart, idleTimeouts[appNameWithPart], idleTimeouts[appNameWithPart]-time.Second)
 					}
 
-					idleTimeouts[appId] = idleTimeouts[appId] - time.Second
+					idleTimeouts[appNameWithPart] = idleTimeouts[appNameWithPart] - time.Second
 				}
 
 				fmt.Printf("[app:%s] Idle timeout exceeded (%v) - stopping container\n", appNameWithPart, originalIdleTimeout)
 				cli.ContainerStop(context.Background(), createdContainer.ID, container.StopOptions{})
 
 				if constants.IsDebugBuild {
-					fmt.Printf("Removing '%s' from idleTimeouts, new length: %v -> %v\n", appId, len(idleTimeouts), len(idleTimeouts)-1)
+					fmt.Printf("Removing '%s' from idleTimeouts, new length: %v -> %v\n", appNameWithPart, len(idleTimeouts), len(idleTimeouts)-1)
 				}
 
-				delete(idleTimeouts, appId)
+				delete(idleTimeouts, appNameWithPart)
 			}()
 		}
 
