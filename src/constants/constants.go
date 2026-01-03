@@ -16,6 +16,7 @@ var (
 
 	Version          string
 	GithubReleaseUrl = "https://api.github.com/repos/CyberL1/localapps-server/releases/latest"
+	UnregistryImage  = "ghcr.io/psviderski/unregistry:0.4.1"
 )
 
 func IsRunningInContainer() bool {

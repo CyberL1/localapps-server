@@ -5,6 +5,7 @@ import (
 	adminApi "localapps-server/server/routes/api/admin"
 	appsApi "localapps-server/server/routes/api/apps"
 	iconsApi "localapps-server/server/routes/api/icons"
+	registryApi "localapps-server/server/routes/api/registry"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -23,6 +24,7 @@ func (h *Handler) RegisterRoutes() *chi.Mux {
 
 		r.Mount("/admin", adminApi.NewHandler().RegisterRoutes())
 		r.Mount("/apps", appsApi.NewHandler().RegisterRoutes())
+		r.Mount("/registry", registryApi.NewHandler().RegisterRoutes())
 	})
 
 	r.Mount("/icons", iconsApi.NewHandler().RegisterRoutes())
