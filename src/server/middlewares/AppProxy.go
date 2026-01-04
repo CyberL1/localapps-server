@@ -31,7 +31,10 @@ func AppProxy(next http.Handler) http.Handler {
 			return
 		}
 
-		appId := strings.Split(r.Host, ".")[0]
+		accessUrlParsed, _ := url.Parse(utils.ServerConfig.AccessUrl)
+
+		subdomains := strings.Split(strings.TrimSuffix(r.Host, "."+accessUrlParsed.Host), ".")
+		appId := subdomains[len(subdomains)-1]
 
 		appData, err := utils.GetAppData(appId)
 		if err != nil {
