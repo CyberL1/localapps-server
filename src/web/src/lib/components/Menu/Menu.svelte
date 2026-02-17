@@ -2,7 +2,7 @@
   import { onMount, tick } from "svelte";
   import type { Item, Props } from "./types";
 
-  let { id = "menu", data, items }: Props = $props();
+  let { id = "menu", items }: Props = $props();
 
   let isVisible = $state(false);
   let posX = $state(0);
@@ -11,12 +11,10 @@
   // svelte-ignore non_reactive_update
   let menu: HTMLElement;
 
-  export async function open(event: MouseEvent, menuData: object) {
+  export async function create(event: MouseEvent) {
     event.stopPropagation();
 
     const rect = (event.target as HTMLElement).getBoundingClientRect();
-
-    data = menuData;
     isVisible = true;
 
     await tick();
@@ -35,14 +33,14 @@
     }
   }
 
-  export function close() {
+  export function destroy() {
     isVisible = false;
   }
 
   onMount(() => {
     const handler = (event: MouseEvent) => {
       if (isVisible && !menu.contains(event.target as Node)) {
-        close();
+        destroy();
       }
     };
 
@@ -55,7 +53,7 @@
       item.onclick();
     }
 
-    close();
+    destroy();
   }
 </script>
 

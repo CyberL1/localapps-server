@@ -6,9 +6,9 @@
   let menu: Menu;
   let menuData: App;
 
-  function openMenu(event: MouseEvent, data: App) {
+  function createMenu(event: MouseEvent, data: App) {
     menuData = data;
-    menu.open(event, data);
+    menu.create(event);
   }
 </script>
 
@@ -17,7 +17,7 @@
     <div class="app" id={app.id.toString()}>
       <div class="content">
         <div class="top">
-          <button class="menu-opener" onclick={(e) => openMenu(e, app)}>
+          <button class="menu-opener" onclick={(e) => createMenu(e, app)}>
             +
           </button>
         </div>
@@ -37,7 +37,6 @@
 
 <Menu
   bind:this={menu}
-  data={menuData}
   items={[
     {
       title: "Open",

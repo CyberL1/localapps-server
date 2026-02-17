@@ -1,6 +1,5 @@
 export interface Props {
   id?: string;
-  data: object;
   items: Item[];
 }
 
