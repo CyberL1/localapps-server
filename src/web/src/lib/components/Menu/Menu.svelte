@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Props } from "./types";
   import { onMount, tick } from "svelte";
+  import type { Props } from "./types";
 
   let { id = "menu", data, items }: Props = $props();
 
