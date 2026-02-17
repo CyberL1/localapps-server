@@ -4,7 +4,7 @@ export interface Props {
   items: Item[];
 }
 
-export interface Item {
+interface Item {
   title: string;
   onclick?: () => void;
 }
