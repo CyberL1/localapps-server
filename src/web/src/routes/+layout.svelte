@@ -2,7 +2,7 @@
   <nav>
     <div class="left">
       <a href="/" class="logo">localapps</a>
-      <a href="https://github.com/CyberL1/localapps" target="_blank">
+      <a href="https://github.com/CyberL1/localapps-server" target="_blank">
         Github repository
       </a>
     </div>
