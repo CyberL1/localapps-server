@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
-  import type { Props } from "./types";
+  import type { Item, Props } from "./types";
 
   let { id = "menu", data, items }: Props = $props();
 
@@ -49,12 +49,20 @@
     window.addEventListener("click", handler);
     return () => window.removeEventListener("click", handler);
   });
+
+  function onItemClick(item: Item) {
+    if (item.onclick) {
+      item.onclick();
+    }
+
+    close();
+  }
 </script>
 
 {#if isVisible}
   <div bind:this={menu} {id} style="left: {posX}px; top: {posY}px;">
     {#each items as item}
-      <button onclick={item.onclick}>{item.title}</button>
+      <button onclick={() => onItemClick(item)}>{item.title}</button>
     {/each}
   </div>
 {/if}

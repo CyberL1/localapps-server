@@ -41,10 +41,7 @@
   items={[
     {
       title: "Open",
-      onclick: () => {
-        window.open(`//${menuData.appId}.${page.data.domain}`);
-        menu.close();
-      },
+      onclick: () => window.open(`//${menuData.appId}.${page.data.domain}`),
     },
     {
       title: "Uninstall",
@@ -63,7 +60,6 @@
             alert("Failed to uninstall the app. Please try again.");
           }
         }
-        menu.close();
       },
     },
   ]}
