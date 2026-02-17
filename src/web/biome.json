@@ -86,24 +86,23 @@
       "trailingCommas": "none"
     }
   },
+  "html": {
+    "experimentalFullSupportEnabled": true
+  },
   "overrides": [
     {
       "includes": ["**/*.svelte"],
       "linter": {
         "rules": {
           "style": {
-            "useConst": "error",
+            "useConst": "off",
             "useImportType": "off"
           },
           "correctness": {
             "noUnusedVariables": "off",
-            "noUnusedImports": "off"
+            "noUnusedImports": "off",
+            "noUndeclaredVariables": "off"
           }
-        }
-      },
-      "html": {
-        "formatter": {
-          "indentScriptAndStyle": true
         }
       }
     }
