@@ -24,7 +24,7 @@
         <a href={`//${app.appId}.${page.data.domain}`} target="_blank">
           <img
             src={app.icon
-              ? `/api/icons/apps/${app.icon}`
+              ? `/api/icons/apps/${app.appId}`
               : "https://placehold.co/60"}
             alt="An icon"
           />
