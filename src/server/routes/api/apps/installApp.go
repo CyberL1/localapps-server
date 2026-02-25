@@ -16,7 +16,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"gopkg.in/yaml.v2"
 )
 
@@ -150,14 +149,16 @@ func installApp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if appInfo.Icon != "" {
-		appInfo.Icon = strings.ReplaceAll(uuid.NewString(), "-", "")
+	if appInfo.Icon == "" {
+		os.Remove(filepath.Join(constants.LocalappsAppIconsDir, appInfo.Id))
+	} else {
+		appInfo.Icon = appInfo.Id
 
 		if _, err := os.Stat(constants.LocalappsAppIconsDir); errors.Is(err, fs.ErrNotExist) {
 			os.MkdirAll(constants.LocalappsAppIconsDir, 0755)
 		}
 
-		os.Create(filepath.Join(constants.LocalappsAppIconsDir, appInfo.Icon))
+		os.Create(filepath.Join(constants.LocalappsAppIconsDir, appInfo.Id))
 
 		iconFile, _, err := r.FormFile("icon")
 		if err != nil {
@@ -199,14 +200,10 @@ func installApp(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		os.WriteFile(filepath.Join(constants.LocalappsAppIconsDir, appInfo.Icon), iconData, 0644)
+		os.WriteFile(filepath.Join(constants.LocalappsAppIconsDir, appInfo.Id), iconData, 0644)
 	}
 
 	if r.FormValue("update") == "true" {
-		if appWithTheSameId.Icon != "" {
-			os.Remove(filepath.Join(constants.LocalappsAppIconsDir, appWithTheSameId.Icon))
-		}
-
 		_, err = client.UpdateApp(context.Background(), db.UpdateAppParams{
 			AppID: appInfo.Id,
 			Name:  appInfo.Name,
